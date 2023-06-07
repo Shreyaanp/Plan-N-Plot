@@ -191,7 +191,7 @@ class UrbanPlannerApp:
         self.canvas.bind("<Button-1>", lambda event: None)  # Disable further text box creation
 
     def run_prompt(self):
-        os.system("python sdiff.py")
+        os.system("python prompt.py")
 
     def redraw_canvas(self):
         self.canvas.delete("all")
@@ -221,7 +221,7 @@ class UrbanPlannerApp:
             self.redraw_canvas()
 
     def run_generate(self):
-        os.system("python stable_diffusion.py")
+        os.system("python sdiff.py")
 
 
 root = tk.Tk()

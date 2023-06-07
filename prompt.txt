@@ -1,1 +1,1 @@
-420 172 520 272 house, 532 404 627 520 park, 268 331 468 431 office, take coordinate with map view from above
+139 448 239 548 house, 336 434 436 534 house, 543 432 643 532 house, take coordinate with map view from above for buildings.

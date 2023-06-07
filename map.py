@@ -1,6 +1,7 @@
-import tkintermapview
-from tkinter import *
+from tkinter import Tk, LabelFrame, Button
 from PIL import ImageGrab
+import tkintermapview
+import subprocess
 
 root = Tk()
 root.title('Select Area')
@@ -13,6 +14,8 @@ def capture_map():
     height = map_widget.winfo_height()
     screenshot = ImageGrab.grab(bbox=(x, y, x + width, y + height))
     screenshot.save("background.png")
+    root.destroy()  # Close the current window
+    subprocess.call(["python", "GUI.py"])  # Open another Python file
 
 my_label = LabelFrame(root)
 my_label.pack(pady=20)
@@ -20,9 +23,9 @@ my_label.pack(pady=20)
 map_widget = tkintermapview.TkinterMapView(my_label, width=800, height=600, corner_radius=0)
 map_widget.set_position(12.9165, 79.1325)
 map_widget.set_zoom(12)
-map_widget.pack(side=LEFT)
+map_widget.pack(side="left")
 
 capture_button = Button(root, text="Capture", command=capture_map, width=15, font=("Arial", 14))
-capture_button.pack(side=LEFT, padx=10)
+capture_button.pack(side="left", padx=10)
 
 root.mainloop()
