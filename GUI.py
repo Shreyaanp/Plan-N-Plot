@@ -174,7 +174,7 @@ class UrbanPlannerApp:
             self.redraw_canvas()
 
     def run_generate(self):
-        os.system("python stable duffusion.py")
+        os.system("python stable diffusion.py")
 
 
 root = tk.Tk()
