@@ -21,7 +21,7 @@ root = tk.Tk()
 root.title("Innovative GUI")
 root.geometry("1980x1080")
 
-bg_image = tk.PhotoImage(file="b.png")
+bg_image = tk.PhotoImage(file="background.png")
 bg_label = tk.Label(root, image=bg_image)
 bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
