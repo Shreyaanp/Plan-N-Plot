@@ -37,7 +37,7 @@ class UrbanPlannerApp:
         self.create_button("Highlighter", self.add_office_component, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Text Box", self.add_school_component, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Create Prompt", self.run_prompt, width=15, height=2, parent_frame=self.right_button_frame)
-
+        self.create_button("Generate", self.run_generate, width=15, height=2, parent_frame=self.right_button_frame)
         # load an image
         self.background_image = tk.PhotoImage(file="test.png")
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
@@ -142,6 +142,9 @@ class UrbanPlannerApp:
 
             self.resize_data["x"] = event.x
             self.resize_data["y"] = event.y
+    
+    def run_prompt(self):
+        os.system("python stable_diffusion.py")
 
     def redraw_canvas(self):
         self.canvas.delete("all")
@@ -170,7 +173,7 @@ class UrbanPlannerApp:
             self.components.pop()
             self.redraw_canvas()
 
-    def run_prompt(self):
+    def run_generate(self):
         os.system("python prompt.py")
 
 

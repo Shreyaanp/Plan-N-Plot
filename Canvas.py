@@ -27,7 +27,7 @@ def game():
 
     cursor_pos = [350, 250]
 
-    dot_radius = 15 # the radius of the dot mouse.
+    dot_radius = 15  # Adjust the radius of the dot
 
     screen_width, screen_height = screen.get_size()
     dot_pos = [random.randint(dot_radius, screen_width - dot_radius),
@@ -86,7 +86,7 @@ with mp_hands.Hands(
                 thumb_x = int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x * canvas_width)
                 thumb_y = int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y * canvas_height)
                 if middle_y < index_y:
-                    pyautogui.moveTo(middle_x, middle_y)
+                    pyautogui.moveTo(2*middle_x, 1.2*middle_y)
                 index_y_pip = int(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP].y * canvas_height)
 
                 if drawing and prev_point is not None and index_y < index_y_pip:  # Check if finger is raised
