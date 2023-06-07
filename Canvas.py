@@ -5,8 +5,6 @@ import pyautogui
 import threading
 import pygame
 import random
-import os
-
 
 canvas_width, canvas_height = 1980, 1080
 canvas = 255 * np.ones((canvas_height, canvas_width, 3), dtype=np.uint8)
@@ -27,7 +25,7 @@ def game():
 
     cursor_pos = [350, 250]
 
-    dot_radius = 15  # Adjust the radius of the dot
+    dot_radius = 15
 
     screen_width, screen_height = screen.get_size()
     dot_pos = [random.randint(dot_radius, screen_width - dot_radius),
@@ -38,7 +36,7 @@ def game():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                distance_squared = (cursor_pos[0] - dot_pos[0]) * 2 + (cursor_pos[1] - dot_pos[1]) * 2
+                distance_squared = (cursor_pos[0] - dot_pos[0]) ** 2 + (cursor_pos[1] - dot_pos[1]) ** 2
                 if distance_squared < dot_radius ** 2:
                     dot_pos = [random.randint(dot_radius, screen_width - dot_radius),
                                random.randint(dot_radius, screen_height - dot_radius)]
@@ -86,7 +84,7 @@ with mp_hands.Hands(
                 thumb_x = int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x * canvas_width)
                 thumb_y = int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y * canvas_height)
                 if middle_y < index_y:
-                    pyautogui.moveTo(2*middle_x, 1.2*middle_y)
+                    pyautogui.moveTo(middle_x, middle_y)
                 index_y_pip = int(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP].y * canvas_height)
 
                 if drawing and prev_point is not None and index_y < index_y_pip:  # Check if finger is raised
@@ -94,10 +92,11 @@ with mp_hands.Hands(
 
                 prev_point = (index_x, index_y)
 
-               #perform left click when thumb and index finger are close
+                #perform left click on pinch gesture o index finger tip and the thumb tip
                 if thumb_x > index_x - 20 and thumb_x < index_x + 20 and thumb_y > index_y - 20 and thumb_y < index_y + 20:
                     print("Left click")
                     pyautogui.click()
+
 
         # Display the canvas and the image
         cv2.imshow('Canvas', canvas)

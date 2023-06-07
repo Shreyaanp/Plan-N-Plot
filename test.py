@@ -1,28 +1,35 @@
-import tkintermapview
-from tkinter import *
-from PIL import ImageGrab
+import tkinter as tk
+from itertools import cycle
 
-root = Tk()
-root.title('Select Area')
-root.geometry("900x700")
+class LoadingScreen(tk.Toplevel):
+    def __init__(self):
+        super().__init__()
+        self.title("Loading")
+        self.geometry("200x100")
+        self.configure(bg="#ffffff")
 
-def capture_map():
-    x = root.winfo_rootx() + my_label.winfo_x() + map_widget.winfo_x()
-    y = root.winfo_rooty() + my_label.winfo_y() + map_widget.winfo_y()
-    width = map_widget.winfo_width()
-    height = map_widget.winfo_height()
-    screenshot = ImageGrab.grab(bbox=(x, y, x + width, y + height))
-    screenshot.save("background.jpg")
+        self.loading_label = tk.Label(self, text="Loading", font=("Arial", 14), bg="#ffffff")
+        self.loading_label.pack(pady=20)
 
-my_label = LabelFrame(root)
-my_label.pack(pady=20)
+        self.animation_frames = cycle(["|", "/", "-", "\\"])
+        self.animation_label = tk.Label(self, text="", font=("Arial", 14), bg="#ffffff")
+        self.animation_label.pack()
 
-map_widget = tkintermapview.TkinterMapView(my_label, width=800, height=600, corner_radius=0)
-map_widget.set_position(12.9165, 79.1325)
-map_widget.set_zoom(12)
-map_widget.pack(side=LEFT)
+        self.animate()
 
-capture_button = Button(root, text="Capture", command=capture_map, width=15, font=("Arial", 14))
-capture_button.pack(side=LEFT, padx=10)
+    def animate(self):
+        frame = next(self.animation_frames)
+        self.animation_label.config(text=frame)
+        self.after(100, self.animate)
+
+# Example usage
+root = tk.Tk()
+
+def start_loading():
+    loading_screen = LoadingScreen()
+    root.after(5000, loading_screen.destroy)  # Simulate a 5-second loading process
+
+start_button = tk.Button(root, text="Start Loading", command=start_loading)
+start_button.pack(pady=50)
 
 root.mainloop()

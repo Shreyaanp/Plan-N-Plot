@@ -5,11 +5,12 @@ import os
 class UrbanPlannerApp:
     def __init__(self, root):
         self.root = root
+        self.root.configure(bg="#14213d")  # Set background color of the root window
 
-        self.left_button_frame = tk.Frame(self.root)
+        self.left_button_frame = tk.Frame(self.root, bg="#14213d")  # Set background color of the left frame
         self.left_button_frame.pack(side=tk.LEFT, fill=tk.Y, anchor='center')
-        # making the canvas
-        self.canvas = tk.Canvas(self.root, width=800, height=600)
+
+        self.canvas = tk.Canvas(self.root, width=800, height=600, bg="#14213d")  # Set background color of the canvas
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.components = []
@@ -23,21 +24,29 @@ class UrbanPlannerApp:
         self.canvas.bind("<B3-Motion>", self.resize)
 
         # components to the left, add here for more components to the canvas.
+        # add label to the left frame
+        self.label = tk.Label(self.left_button_frame, text="Components", font=("Arial", 14), bg="#14213d", fg="white")
+        self.label.pack(side=tk.TOP, padx=5, pady=5)
         self.create_button("House", self.add_house_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Park", self.add_park_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Office", self.add_office_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("School", self.add_school_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Save", self.save_components, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Delete", self.delete_component, width=15, height=2, parent_frame=self.left_button_frame)
-        self.right_button_frame = tk.Frame(self.root)
+
+        self.right_button_frame = tk.Frame(self.root, bg="#14213d")  # Set background color of the right frame
         self.right_button_frame.pack(side=tk.RIGHT, fill=tk.Y, anchor='center')
-        # right components. this is left to complete
-        self.create_button("Pencil", self.add_house_component, width=15, height=2, parent_frame=self.right_button_frame)
-        self.create_button("Eraser", self.add_park_component, width=15, height=2, parent_frame=self.right_button_frame)
-        self.create_button("Highlighter", self.add_office_component, width=15, height=2, parent_frame=self.right_button_frame)
-        self.create_button("Text Box", self.add_school_component, width=15, height=2, parent_frame=self.right_button_frame)
+
+        # right components
+        self.label = tk.Label(self.right_button_frame, text="Tools", font=("Arial", 14), bg="#14213d", fg="white")
+        self.label.pack(side=tk.TOP, padx=5, pady=5)
+        self.create_button("Pencil", self.use_pencil, width=15, height=2, parent_frame=self.right_button_frame)
+        self.create_button("Eraser", self.use_eraser, width=15, height=2, parent_frame=self.right_button_frame)
+        self.create_button("Highlighter", self.use_highlighter, width=15, height=2, parent_frame=self.right_button_frame)
+        self.create_button("Text Box", self.use_text_box, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Create Prompt", self.run_prompt, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Generate", self.run_generate, width=15, height=2, parent_frame=self.right_button_frame)
+
         # load an image
         self.background_image = tk.PhotoImage(file="test.png")
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
@@ -142,7 +151,45 @@ class UrbanPlannerApp:
 
             self.resize_data["x"] = event.x
             self.resize_data["y"] = event.y
-    
+
+    def use_pencil(self):
+        self.canvas.config(cursor="pencil")
+        self.canvas.bind("<Button-1>", self.draw_pencil)
+        self.canvas.bind("<B1-Motion>", self.draw_pencil)
+
+    def draw_pencil(self, event):
+        x, y = event.x, event.y
+        self.canvas.create_oval(x - 1, y - 1, x + 1, y + 1, fill="black", outline="black")
+
+    def use_eraser(self):
+        self.canvas.config(cursor="circle")
+        self.canvas.bind("<Button-1>", self.erase)
+        self.canvas.bind("<B1-Motion>", self.erase)
+
+    def erase(self, event):
+        x, y = event.x, event.y
+        self.canvas.create_oval(x - 5, y - 5, x + 5, y + 5, fill="#14213d", outline="#14213d")
+
+    def use_highlighter(self):
+        self.canvas.config(cursor="dotbox")
+        self.canvas.bind("<Button-1>", self.highlight)
+        self.canvas.bind("<B1-Motion>", self.highlight)
+
+    def highlight(self, event):
+        x, y = event.x, event.y
+        self.canvas.create_rectangle(x - 3, y - 3, x + 3, y + 3, fill="yellow", outline="yellow")
+
+    def use_text_box(self):
+        self.canvas.config(cursor="X_cursor")
+        self.canvas.bind("<Button-1>", self.create_text_box)
+
+    def create_text_box(self, event):
+        x, y = event.x, event.y
+        text = tk.Text(self.canvas, width=10, height=2, bg="#14213d", fg="white", insertbackground="white")
+        text_window = self.canvas.create_window(x, y, anchor=tk.NW, window=text)
+        text.focus_set()
+        self.canvas.bind("<Button-1>", lambda event: None)  # Disable further text box creation
+
     def run_prompt(self):
         os.system("python stable_diffusion.py")
 
@@ -174,7 +221,7 @@ class UrbanPlannerApp:
             self.redraw_canvas()
 
     def run_generate(self):
-        os.system("python stable diffusion.py")
+        os.system("python stable_diffusion.py")
 
 
 root = tk.Tk()
