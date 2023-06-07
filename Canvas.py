@@ -5,8 +5,9 @@ import pyautogui
 import threading
 import pygame
 import random
+import math
 
-canvas_width, canvas_height = 1980, 1080
+canvas_width, canvas_height = 1280, 720
 canvas = 255 * np.ones((canvas_height, canvas_width, 3), dtype=np.uint8)
 drawing = False
 prev_point = None
@@ -57,6 +58,20 @@ canvas_cleared = False
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
+# write the how to use on the canvas
+cv2.putText(canvas, "Press 'c' to clear the canvas", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press 'd' to start/stop drawing", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press 'r' to change color to red", (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press 'g' to change color to green", (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press 'b' to change color to blue", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press '+' to increase brush size", (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press '-' to decrease brush size", (10, 210), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press 'l' to play a game", (10, 240), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "Press 'q' to quit", (10, 270), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "raise your index finger to go into drawing mode", (10, 300), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+cv2.putText(canvas, "raise your middle finger to start cursor mode", (10, 330), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+
+
 cap = cv2.VideoCapture(0)
 
 with mp_hands.Hands(
@@ -92,9 +107,8 @@ with mp_hands.Hands(
 
                 prev_point = (index_x, index_y)
 
-                #perform left click on pinch gesture o index finger tip and the thumb tip
-                if thumb_x > index_x - 20 and thumb_x < index_x + 20 and thumb_y > index_y - 20 and thumb_y < index_y + 20:
-                    print("Left click")
+                #left click if the index finger tip is close to the thumb tip
+                if math.sqrt((index_x - thumb_x) ** 2 + (index_y - thumb_y) ** 2) < 50:
                     pyautogui.click()
 
 

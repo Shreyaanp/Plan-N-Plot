@@ -48,7 +48,7 @@ class UrbanPlannerApp:
         self.create_button("Generate", self.run_generate, width=15, height=2, parent_frame=self.right_button_frame)
 
         # load an image
-        self.background_image = tk.PhotoImage(file="test.png")
+        self.background_image = tk.PhotoImage(file="background.png")
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
 
     def create_button(self, text, command, width=10, height=1, parent_frame=None):
@@ -191,7 +191,7 @@ class UrbanPlannerApp:
         self.canvas.bind("<Button-1>", lambda event: None)  # Disable further text box creation
 
     def run_prompt(self):
-        os.system("python stable_diffusion.py")
+        os.system("python sdiff.py")
 
     def redraw_canvas(self):
         self.canvas.delete("all")

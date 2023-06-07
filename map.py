@@ -12,7 +12,7 @@ def capture_map():
     width = map_widget.winfo_width()
     height = map_widget.winfo_height()
     screenshot = ImageGrab.grab(bbox=(x, y, x + width, y + height))
-    screenshot.save("background.jpg")
+    screenshot.save("background.png")
 
 my_label = LabelFrame(root)
 my_label.pack(pady=20)

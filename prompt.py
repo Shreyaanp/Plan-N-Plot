@@ -1,11 +1,9 @@
 file_path = "components.txt"
 new_file_path = "prompt.txt"
-# Open the file in read mode
+
 with open(file_path, "r") as file:
-    # Read the lines of the file
     lines = file.readlines()
 
-# Remove line breaks and join the lines into a single line
 data_line = " ".join(line.strip() for line in lines)
 
 # Replace "yellow" with "park"
