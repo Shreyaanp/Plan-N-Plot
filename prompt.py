@@ -16,5 +16,5 @@ data_line = data_line.replace("blue", "house,")
 
 
 with open(new_file_path, "w") as file:
-    file.write(data_line)
+    file.write(data_line+" take coordinate with map view")
 

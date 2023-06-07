@@ -1,1 +1,1 @@
-145 111 245 211 house, 343 38 543 238 park, 305 325 505 425 office, 100 300 300 400 office,
+420 172 520 272 house, 532 404 627 520 park, 268 331 468 431 office, take coordinate with map view from above
