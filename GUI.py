@@ -1,4 +1,6 @@
 import tkinter as tk
+import os
+
 
 class UrbanPlannerApp:
     def __init__(self, root):
@@ -12,15 +14,15 @@ class UrbanPlannerApp:
 
         self.components = []
 
-        #testing the button
+        # testing the button
         self.canvas.bind("<ButtonPress-1>", self.start_drag)
         self.canvas.bind("<B1-Motion>", self.drag)
 
-        #Resizing
+        # Resizing
         self.canvas.bind("<ButtonPress-3>", self.start_resize)
         self.canvas.bind("<B3-Motion>", self.resize)
 
-        #compoenents to the left, add here for more compoenents to the canvas.
+        # components to the left, add here for more components to the canvas.
         self.create_button("House", self.add_house_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Park", self.add_park_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Office", self.add_office_component, width=15, height=2, parent_frame=self.left_button_frame)
@@ -29,13 +31,14 @@ class UrbanPlannerApp:
         self.create_button("Delete", self.delete_component, width=15, height=2, parent_frame=self.left_button_frame)
         self.right_button_frame = tk.Frame(self.root)
         self.right_button_frame.pack(side=tk.RIGHT, fill=tk.Y, anchor='center')
-        #right compoentns. this is left to complete
+        # right components. this is left to complete
         self.create_button("Pencil", self.add_house_component, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Eraser", self.add_park_component, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Highlighter", self.add_office_component, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Text Box", self.add_school_component, width=15, height=2, parent_frame=self.right_button_frame)
+        self.create_button("Create Prompt", self.run_prompt, width=15, height=2, parent_frame=self.right_button_frame)
 
-        #load an image
+        # load an image
         self.background_image = tk.PhotoImage(file="test.png")
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
 
@@ -166,6 +169,9 @@ class UrbanPlannerApp:
         if self.components:
             self.components.pop()
             self.redraw_canvas()
+
+    def run_prompt(self):
+        os.system("python prompt.py")
 
 
 root = tk.Tk()
