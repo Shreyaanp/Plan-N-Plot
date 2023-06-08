@@ -15,16 +15,12 @@ class UrbanPlannerApp:
 
         self.components = []
 
-        # testing the button
         self.canvas.bind("<ButtonPress-1>", self.start_drag)
         self.canvas.bind("<B1-Motion>", self.drag)
 
-        # Resizing
         self.canvas.bind("<ButtonPress-3>", self.start_resize)
         self.canvas.bind("<B3-Motion>", self.resize)
 
-        # components to the left, add here for more components to the canvas.
-        # add label to the left frame
         self.label = tk.Label(self.left_button_frame, text="Components", font=("Arial", 14), bg="#14213d", fg="white")
         self.label.pack(side=tk.TOP, padx=5, pady=5)
         self.create_button("House", self.add_house_component, width=15, height=2, parent_frame=self.left_button_frame)
@@ -37,7 +33,6 @@ class UrbanPlannerApp:
         self.right_button_frame = tk.Frame(self.root, bg="#14213d")  # Set background color of the right frame
         self.right_button_frame.pack(side=tk.RIGHT, fill=tk.Y, anchor='center')
 
-        # right components
         self.label = tk.Label(self.right_button_frame, text="Tools", font=("Arial", 14), bg="#14213d", fg="white")
         self.label.pack(side=tk.TOP, padx=5, pady=5)
         self.create_button("Pencil", self.use_pencil, width=15, height=2, parent_frame=self.right_button_frame)
@@ -46,6 +41,8 @@ class UrbanPlannerApp:
         self.create_button("Text Box", self.use_text_box, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Create Prompt", self.run_prompt, width=15, height=2, parent_frame=self.right_button_frame)
         self.create_button("Generate", self.run_generate, width=15, height=2, parent_frame=self.right_button_frame)
+        self.create_button("Green Index", self.run_greenindex, width=15, height=2, parent_frame=self.right_button_frame)
+        self.create_button("Exit", self.root.destroy, width=15, height=2, parent_frame=self.right_button_frame)
 
         # load an image
         self.background_image = tk.PhotoImage(file="background.png")
@@ -222,7 +219,16 @@ class UrbanPlannerApp:
 
     def run_generate(self):
         os.system("python sdiff.py")
-
+    def run_greenindex(self):
+        #create a new tread in new window
+        os.system("python greenindex.py")
+        print("greenindex.py")
+        #display the green index values in the left frame
+        f = open("greenindex.txt", "r")
+        green_index_text = f.read()
+        f.close()
+        self.label = tk.Label(self.left_button_frame, text=green_index_text, font=("Arial", 12), bg="white", padx=10, pady=10)
+        self.label.pack(pady=10)
 
 root = tk.Tk()
 root.title("Urban Planner")

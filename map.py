@@ -15,8 +15,9 @@ def capture_map():
     height = map_widget.winfo_height()
     screenshot = ImageGrab.grab(bbox=(x, y, x + width, y + height))
     screenshot.save("background.png")
+    
     root.destroy()  # Close the current window
-    subprocess.call(["python", "GUI.py"])  # Open another Python file
+    subprocess.call(["python", "GUI.py"])
 
 my_label = LabelFrame(root)
 my_label.pack(pady=20)
