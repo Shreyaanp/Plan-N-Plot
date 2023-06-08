@@ -1,1 +1,1 @@
-405 82 505 182 house, 249 143 358 327 park, 77 48 203 338 office, 412 237 612 337 school, take coordinate with map view from the above
+590 45 627 91 house, 235 379 352 493 park, 56 262 154 482 office, 392 203 592 303 school, take coordinate with map view from the above
