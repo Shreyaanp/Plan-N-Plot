@@ -1,5 +1,5 @@
 
-# EchoSpectra
+# Plan N Plot
 
 A graphical user interface (GUI) that enables users to select specific areas from Google Maps and plan infrastructure development using blocks and scribbles. The planned infrastructure designs will then be transformed into text prompts and subsequently converted into high-quality images using stable diffusion techniques.
 
