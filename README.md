@@ -32,6 +32,12 @@ note that we use stable diffusion to run this application. Need to have atleast 
 pip install diffusers transformers accelerate scipy safetensors mediapipe opencv-python pygame tkintermapview torch pillow pyautogui
 ```
 
+## Features
+
+- Image generation from GUI
+- Green quality index comparision
+- Free hand GUI control for Image generation
+- Control game
 
 
 ## Screenshots
@@ -47,3 +53,4 @@ pip install diffusers transformers accelerate scipy safetensors mediapipe opencv
 ![10](https://github.com/Shreyaanp/EchoSpectra/assets/79451850/bfeac20c-5209-45ef-86a9-f7237a7c5c5d)
 ![11](https://github.com/Shreyaanp/EchoSpectra/assets/79451850/129f59a4-2ab4-4462-8952-1e27c455544b)
 ![12](https://github.com/Shreyaanp/EchoSpectra/assets/79451850/d67a1667-3733-49e4-b527-60f1f8ea8115)
+![13](https://github.com/Shreyaanp/EchoSpectra/assets/79451850/67ffb9fb-27cc-4326-a224-0915165953f0)
