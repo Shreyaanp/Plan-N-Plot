@@ -5,10 +5,33 @@ A graphical user interface (GUI) that enables users to select specific areas fro
 
 
 
+## Installation
 
-## Documentation
+Create a virtual environment before starting. 
 
-[Documentation](https://linktodocumentation)
+Pre-requisite :
+
+Python 3.8
+mediapipe
+opencv
+pyautogui
+pygame
+pillow
+tkintermapview
+torch
+transformer
+diffusers
+transformers
+accelerate
+scipy
+safetensors
+
+note that we use stable diffusion to run this application. Need to have atleast 18GB free storage space.
+
+```bash
+pip install diffusers transformers accelerate scipy safetensors mediapipe opencv-python pygame tkintermapview torch pillow pyautogui
+```
+
 
 
 ## Screenshots
