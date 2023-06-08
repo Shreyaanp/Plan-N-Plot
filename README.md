@@ -39,7 +39,7 @@ pip install diffusers transformers accelerate scipy safetensors mediapipe opencv
 - Free hand GUI control for Image generation
 - Control game
 
-
+## Result is saved as output .jpg. Please change the Satellite view in mycase is dr.sandhya map satellite.png, to your satellite image of the same point to compare the green index
 ## Screenshots
 ![01](https://github.com/Shreyaanp/EchoSpectra/assets/79451850/4bfdd59a-cf68-44d8-a144-1c973b5c802a)
 ![02](https://github.com/Shreyaanp/EchoSpectra/assets/79451850/1811e863-3217-4a17-aa4a-70a5017c4d1f)
