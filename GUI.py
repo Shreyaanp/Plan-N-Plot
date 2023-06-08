@@ -23,10 +23,10 @@ class UrbanPlannerApp:
 
         self.label = tk.Label(self.left_button_frame, text="Components", font=("Arial", 14), bg="#14213d", fg="white")
         self.label.pack(side=tk.TOP, padx=5, pady=5)
-        self.create_button("House", self.add_house_component, width=15, height=2, parent_frame=self.left_button_frame)
-        self.create_button("Park", self.add_park_component, width=15, height=2, parent_frame=self.left_button_frame)
-        self.create_button("Office", self.add_office_component, width=15, height=2, parent_frame=self.left_button_frame)
-        self.create_button("School", self.add_school_component, width=15, height=2, parent_frame=self.left_button_frame)
+        self.create_button("House", lambda: self.add_component("House"), width=15, height=2, parent_frame=self.left_button_frame)
+        self.create_button("Park", lambda: self.add_component("Park"), width=15, height=2, parent_frame=self.left_button_frame)
+        self.create_button("Office", lambda: self.add_component("Office"), width=15, height=2, parent_frame=self.left_button_frame)
+        self.create_button("School", lambda: self.add_component("School"), width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Save", self.save_components, width=15, height=2, parent_frame=self.left_button_frame)
         self.create_button("Delete", self.delete_component, width=15, height=2, parent_frame=self.left_button_frame)
 
@@ -67,33 +67,21 @@ class UrbanPlannerApp:
         button.bind("<ButtonPress-3>", self.start_resize)
         button.bind("<B3-Motion>", self.resize)
 
-    def add_component(self, component):
-        x1, y1, x2, y2 = component["x1"], component["y1"], component["x2"], component["y2"]
+    def add_component(self, component_type):
+        if component_type == "House":
+            component = {"x1": 100, "y1": 100, "x2": 200, "y2": 200, "color": "blue"}
+        elif component_type == "Park":
+            component = {"x1": 300, "y1": 100, "x2": 500, "y2": 300, "color": "green"}
+        elif component_type == "Office":
+            component = {"x1": 100, "y1": 300, "x2": 300, "y2": 400, "color": "yellow"}
+        elif component_type == "School":
+            component = {"x1": 400, "y1": 400, "x2": 600, "y2": 500, "color": "orange"}
+
         self.components.append(component)
         self.canvas.create_rectangle(
-            x1, y1, x2, y2, fill=component["color"], outline="black"
+            component["x1"], component["y1"], component["x2"], component["y2"], fill=component["color"], outline="black"
         )
-        self.canvas.create_oval(x2 - 5, y2 - 5, x2 + 5, y2 + 5, fill="red")
-
-    def add_house_component(self):
-        component = {"x1": 100, "y1": 100, "x2": 200, "y2": 200, "color": "blue"}
-        self.add_component(component)
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
-
-    def add_park_component(self):
-        component = {"x1": 300, "y1": 100, "x2": 500, "y2": 300, "color": "green"}
-        self.add_component(component)
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
-
-    def add_office_component(self):
-        component = {"x1": 100, "y1": 300, "x2": 300, "y2": 400, "color": "yellow"}
-        self.add_component(component)
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
-
-    def add_school_component(self):
-        component = {"x1": 400, "y1": 400, "x2": 600, "y2": 500, "color": "orange"}
-        self.add_component(component)
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.background_image)
+        self.canvas.create_oval(component["x2"] - 5, component["y2"] - 5, component["x2"] + 5, component["y2"] + 5, fill="red")
 
     def start_drag(self, event):
         self.drag_data = {"x": event.x, "y": event.y, "component": None}
@@ -219,16 +207,18 @@ class UrbanPlannerApp:
 
     def run_generate(self):
         os.system("python sdiff.py")
+
     def run_greenindex(self):
-        #create a new tread in new window
         os.system("python greenindex.py")
-        print("greenindex.py")
-        #display the green index values in the left frame
+
+        # Display the green index values in the left frame
         f = open("greenindex.txt", "r")
         green_index_text = f.read()
         f.close()
+
         self.label = tk.Label(self.left_button_frame, text=green_index_text, font=("Arial", 12), bg="white", padx=10, pady=10)
         self.label.pack(pady=10)
+
 
 root = tk.Tk()
 root.title("Urban Planner")
