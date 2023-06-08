@@ -38,7 +38,7 @@ def display_images(image1, image2, green_index1, green_index2):
     label2.pack(side="right", padx=10, pady=10)
 
     # Display the green index values
-    green_index_text = "Green Index:\n\nImage 1: {:.2f}\nImage 2: {:.2f}\n\nDifference: {:.2f}\nPercentage Difference: {:.2f}%".format(
+    green_index_text = "Green Index:\n\nImage 1: {:.2f}\nImage 2: {:.2f}\n\nDifference: {:.2f}%".format(
         green_index1, green_index2, green_index1 - green_index2, (green_index1 - green_index2) / green_index1 * 100)
     green_index_label = tk.Label(root, text=green_index_text, font=("Arial", 12), bg="white", padx=10, pady=10)
     green_index_label.pack(pady=10)
@@ -47,7 +47,7 @@ def display_images(image1, image2, green_index1, green_index2):
     f = open("greenindex.txt", "w")
     f.write(green_index_text)
     f.close()
-    
+
 
     root.mainloop()
 

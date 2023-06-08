@@ -1,7 +1,6 @@
 Green Index:
 
 Image 1: 0.23
-Image 2: 24.41
+Image 2: 24.05
 
-Difference: -24.18
-Percentage Difference: -10365.86%
+Difference: -23.82%
